@@ -1,6 +1,6 @@
-#Prolog-checkers
+# Prolog-checkers
 
-##DCC019-Trabalho3
+## DCC019-Trabalho3
 
 Game of checkers using Prolog
 
