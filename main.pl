@@ -1,7 +1,7 @@
 :- [tabuleiro].
 :- [logica].
 
-ler_comando(coordenadas(X,Y)):-
+ler_comando(coordenadas(X,Y),Jogador_vez):-
 	repeat,
 	% write("Your move: <"),write(Color),write("> "),
 	write("Digite sua jogada: "),
@@ -10,7 +10,7 @@ ler_comando(coordenadas(X,Y)):-
 	(
 	  	Input = "sair", halt
 	;
-		split_string(Input, "(", "", [Comando | Resto]),
+		split_string(Input, "(", "", [Comando | [Resto|_]]),
 		(
 			(Comando \= "mv",Comando \= "cap"),
 			write("Comando Inválido!"), nl,
@@ -18,13 +18,18 @@ ler_comando(coordenadas(X,Y)):-
 		;
 			( 
 				Comando = "mv",
-				split_string(Resto, ",", "", Coor),
-				Movimentar(Comando, Coor)
+				split_string(Resto, ")", "", [Coor | _]),
+				split_string(Coor, ",", "", [Atual | [Prox|_]]),
+				string_position_to_coord(Atual, Pos1),
+				string_position_to_coord(Prox,Pos2),
+				get_piece_at_position(Prox, Jogador_vez, Y),
+				%movimentar(Comando, Coor)
+				write(Y)
 			;
+				write(coordenadas)
 				/*Cap aqui*/
 			)
 			
-			write(Resto)
 	   	)
 	).
 
